@@ -65,7 +65,6 @@ body { font-family: 'DM Sans', Arial, sans-serif; background: var(--bg); color: 
 .inline-other input:focus { border-color: var(--accent); background: white; box-shadow: 0 0 0 3px rgba(220,193,140,0.25); }
 .inline-other.visible { display: flex; align-items: center; gap: 8px; }
 
-/* Language toggle button */
 .lang-toggle {
   display: flex;
   align-items: center;
@@ -477,7 +476,6 @@ body { font-family: 'DM Sans', Arial, sans-serif; background: var(--bg); color: 
 </div>
 
 <script>
-/* ─── Translations ─────────────────────────────────────────── */
 const translations = {
   fr: {
     "header.title": "Questionnaire de qualification projet",
@@ -486,6 +484,10 @@ const translations = {
     "specify": "Préciser :", "specify_ph": "Préciser…",
     "multi_choice": "Plusieurs choix possibles",
     "print_btn": "Télécharger le PDF / Imprimer",
+    "footer.line1": "AQUALUX SAS — ZA de la Massane, 287 route de la Massane, 13210 Saint-Rémy-de-Provence, France",
+    "footer.line2": "email : blue@cf.group",
+    "footer.line3": "RCS 390 039 949 Tarascon — SAS capital 1 500 000 € — N° TVA FR32 390 039 949",
+    "footer.line4": "tél. : +33 (0) 9 70 72 5000",
     "s1.title": "Coordonnées du client",
     "s1.societe": "Société", "s1.societe_ph": "Raison sociale",
     "s1.adresse": "Adresse", "s1.adresse_ph": "3 rue…",
@@ -562,12 +564,7 @@ const translations = {
     "s5.title": "Remarques & observations",
     "s5.obs_label": "Observations complémentaires",
     "s5.obs_ph": "Informations complémentaires, contraintes spécifiques, accès chantier…"
-    "footer.line1": "AQUALUX SAS — ZA de la Massane, 287 route de la Massane, 13210 Saint-Rémy-de-Provence, France",
-"footer.line2": "email : blue@cf.group",
-"footer.line3": "RCS 390 039 949 Tarascon — SAS capital 1 500 000 € — N° TVA FR32 390 039 949",
-"footer.line4": "tél. : +33 (0) 9 70 72 5000"
   },
-  
   en: {
     "header.title": "Project Qualification Questionnaire",
     "header.subtitle": "Technical analysis & scoping",
@@ -575,6 +572,10 @@ const translations = {
     "specify": "Specify:", "specify_ph": "Specify…",
     "multi_choice": "Multiple choices possible",
     "print_btn": "Download PDF / Print",
+    "footer.line1": "AQUALUX SAS — ZA de la Massane, 287 route de la Massane, 13210 Saint-Rémy-de-Provence, France",
+    "footer.line2": "email: blue@cf.group",
+    "footer.line3": "Company reg. 390 039 949 Tarascon — SAS capital €1,500,000 — VAT no. FR32 390 039 949",
+    "footer.line4": "tel.: +33 (0) 9 70 72 5000",
     "s1.title": "Client information",
     "s1.societe": "Company", "s1.societe_ph": "Legal name",
     "s1.adresse": "Address", "s1.adresse_ph": "3 Oxford Street…",
@@ -606,7 +607,7 @@ const translations = {
     "s3.environnement": "Environment",
     "s3.urbain": "Urban", "s3.vegetalise": "Landscaped", "s3.campagne": "Rural",
     "s3.couverture": "Cover equipment",
-    "s3.volet": "Slatted cover", "s3.isothermique": "Bubble cover",
+    "s3.volet": "Roller shutter", "s3.isothermique": "Isothermal cover",
     "s3.barres": "Bar cover", "s3.sans_couverture": "No cover",
     "s3.revetement": "Liner type",
     "s3.pvc": "Reinforced PVC", "s3.liner": "Liner", "s3.ceramique": "Ceramic",
@@ -624,8 +625,8 @@ const translations = {
     "s3.chauffage": "Heating system",
     "s3.pac": "Heat pump", "s3.sans_chauffage": "No heating",
     "s3.nettoyage": "Cleaning system",
-    "s3.balai": "Manual brush", "s3.robot_hydro": "Hydraulic cleaner",
-    "s3.robot_elec": "Electric cleaner", "s3.buses_fond": "Bottom cleaning jets",
+    "s3.balai": "Manual brush", "s3.robot_hydro": "Hydraulic robot",
+    "s3.robot_elec": "Electric robot", "s3.buses_fond": "Bottom cleaning jets",
     "s4.title": "Equipment room",
     "s4.porte_dim": "Access door & room dimensions",
     "s4.haut_porte": "Door height", "s4.larg_porte": "Door width",
@@ -651,10 +652,6 @@ const translations = {
     "s5.title": "Remarks & observations",
     "s5.obs_label": "Additional observations",
     "s5.obs_ph": "Additional information, specific constraints, site access…"
-    "footer.line1": "AQUALUX SAS — ZA de la Massane, 287 route de la Massane, 13210 Saint-Rémy-de-Provence, France",
-"footer.line2": "email: blue@cf.group",
-"footer.line3": "Company reg. 390 039 949 Tarascon — Share capital €1,500,000 — VAT no. FR32 390 039 949",
-"footer.line4": "tel.: +33 (0) 9 70 72 5000"
   }
 };
 
@@ -677,7 +674,6 @@ function setLang(lang) {
   document.title = lang === 'en' ? 'Purity Project Questionnaire' : 'Questionnaire Purity';
 }
 
-/* ─── Original interaction logic ─── */
 function selectRadio(el, groupId) {
   const group = document.getElementById(groupId);
   if (!group) return;

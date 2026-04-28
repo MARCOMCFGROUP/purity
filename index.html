@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Questionnaire Purity</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="icon" type="image/png" href="yuz6vtwj65uweb7zda3z.png">
+<link rel="icon" type="image/png" href="yuz6vtwj65uweb7zda3z.png">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
@@ -63,6 +63,35 @@ body { font-family: 'DM Sans', Arial, sans-serif; background: var(--bg); color: 
 .inline-other input { border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 7px 12px; font-size: 13px; font-family: 'DM Sans', Arial, sans-serif; background: #fafafa; outline: none; width: 220px; transition: 0.2s; }
 .inline-other input:focus { border-color: var(--accent); background: white; box-shadow: 0 0 0 3px rgba(220,193,140,0.25); }
 .inline-other.visible { display: flex; align-items: center; gap: 8px; }
+
+/* Language toggle button */
+.lang-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  border: 1.5px solid rgba(255,255,255,0.35);
+  border-radius: 20px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.lang-btn {
+  font-family: 'DM Sans', Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 5px 14px;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  color: rgba(255,255,255,0.55);
+  letter-spacing: 0.5px;
+  transition: 0.2s;
+}
+.lang-btn.active {
+  background: var(--accent);
+  color: var(--primary);
+}
+.lang-btn:hover:not(.active) { color: white; }
+
 @media (max-width: 600px) {
   .fg, .g2 { grid-template-columns: 1fr !important; }
   .page-wrapper { padding: 1rem; }
@@ -71,7 +100,7 @@ body { font-family: 'DM Sans', Arial, sans-serif; background: var(--bg); color: 
   .footer { flex-direction: column; }
   .footer-left { max-width: 100%; }
 }
-@media print { body { background: white; } .footer-actions, .progress-bar { display: none; } }
+@media print { body { background: white; } .footer-actions, .progress-bar, .lang-toggle { display: none; } }
 </style>
 </head>
 <body>
@@ -80,8 +109,12 @@ body { font-family: 'DM Sans', Arial, sans-serif; background: var(--bg); color: 
   <div class="header">
     <img src="Logo purity trsp.png" class="header-logo-img" alt="Logo Purity">
     <div class="header-text">
-      <h1>Questionnaire de qualification projet</h1>
-      <p>Analyse &amp; cadrage technique</p>
+      <h1 data-i18n="header.title">Questionnaire de qualification projet</h1>
+      <p data-i18n="header.subtitle">Analyse &amp; cadrage technique</p>
+    </div>
+    <div class="lang-toggle">
+      <button class="lang-btn active" id="btnFR" onclick="setLang('fr')">FR</button>
+      <button class="lang-btn" id="btnEN" onclick="setLang('en')">EN</button>
     </div>
   </div>
 
@@ -93,26 +126,26 @@ body { font-family: 'DM Sans', Arial, sans-serif; background: var(--bg); color: 
     <div class="section">
       <div class="section-title">
         <div class="section-number">1</div>
-        <h2>Coordonnées du client</h2>
+        <h2 data-i18n="s1.title">Coordonnées du client</h2>
       </div>
       <div class="fg c1">
-        <div class="field"><label>Société</label><input type="text" placeholder="Raison sociale"></div>
+        <div class="field"><label data-i18n="s1.societe">Société</label><input type="text" data-i18n-ph="s1.societe_ph" placeholder="Raison sociale"></div>
       </div>
       <div class="fg c1">
-        <div class="field"><label>Adresse</label><input type="text" placeholder="3 rue…"></div>
+        <div class="field"><label data-i18n="s1.adresse">Adresse</label><input type="text" data-i18n-ph="s1.adresse_ph" placeholder="3 rue…"></div>
       </div>
       <div class="fg">
-        <div class="field"><label>Interlocuteur</label><input type="text" placeholder="Nom, prénom"></div>
-        <div class="field"><label>E-mail</label><input type="email" placeholder="adresse@exemple.fr"></div>
+        <div class="field"><label data-i18n="s1.interlocuteur">Interlocuteur</label><input type="text" data-i18n-ph="s1.interlocuteur_ph" placeholder="Nom, prénom"></div>
+        <div class="field"><label data-i18n="s1.email">E-mail</label><input type="email" data-i18n-ph="s1.email_ph" placeholder="adresse@exemple.fr"></div>
       </div>
       <div class="fg">
-        <div class="field"><label>Tél. bureau</label><input type="tel" placeholder="+33 1 00 00 00 00"></div>
-        <div class="field"><label>Tél. portable</label><input type="tel" placeholder="+33 6 00 00 00 00"></div>
+        <div class="field"><label data-i18n="s1.tel_bureau">Tél. bureau</label><input type="tel" placeholder="+33 1 00 00 00 00"></div>
+        <div class="field"><label data-i18n="s1.tel_portable">Tél. portable</label><input type="tel" placeholder="+33 6 00 00 00 00"></div>
       </div>
-      <div class="sublabel">Client CF group</div>
+      <div class="sublabel" data-i18n="s1.client_cf">Client CF group</div>
       <div class="choice-group" id="cgClient">
-        <label class="choice-item" onclick="selectRadio(this,'cgClient')"><input type="radio" name="clientCF" value="oui"> Oui</label>
-        <label class="choice-item" onclick="selectRadio(this,'cgClient')"><input type="radio" name="clientCF" value="non"> Non</label>
+        <label class="choice-item" onclick="selectRadio(this,'cgClient')"><input type="radio" name="clientCF" value="oui"> <span data-i18n="yes">Oui</span></label>
+        <label class="choice-item" onclick="selectRadio(this,'cgClient')"><input type="radio" name="clientCF" value="non"> <span data-i18n="no">Non</span></label>
       </div>
     </div>
 
@@ -120,19 +153,19 @@ body { font-family: 'DM Sans', Arial, sans-serif; background: var(--bg); color: 
     <div class="section">
       <div class="section-title">
         <div class="section-number">2</div>
-        <h2>Adresse du projet &amp; Maître d'œuvre</h2>
+        <h2 data-i18n="s2.title">Adresse du projet &amp; Maître d'œuvre</h2>
       </div>
       <div class="fg c1">
-        <div class="field"><label>Adresse du projet</label><input type="text" placeholder="3 rue…"></div>
+        <div class="field"><label data-i18n="s2.adresse_projet">Adresse du projet</label><input type="text" data-i18n-ph="s1.adresse_ph" placeholder="3 rue…"></div>
       </div>
-      <div class="sublabel">Architecte / Maître d'œuvre</div>
+      <div class="sublabel" data-i18n="s2.archi">Architecte / Maître d'œuvre</div>
       <div class="fg">
-        <div class="field"><label>Nom / Cabinet</label><input type="text" placeholder="Nom ou raison sociale"></div>
-        <div class="field"><label>Adresse</label><input type="text" placeholder="3 rue…"></div>
+        <div class="field"><label data-i18n="s2.nom_cabinet">Nom / Cabinet</label><input type="text" data-i18n-ph="s2.nom_cabinet_ph" placeholder="Nom ou raison sociale"></div>
+        <div class="field"><label data-i18n="s1.adresse">Adresse</label><input type="text" data-i18n-ph="s1.adresse_ph" placeholder="3 rue…"></div>
       </div>
       <div class="fg">
-        <div class="field"><label>Tél. portable</label><input type="tel" placeholder="+33 6 00 00 00 00"></div>
-        <div class="field"><label>E-mail</label><input type="email" placeholder="architecte@exemple.fr"></div>
+        <div class="field"><label data-i18n="s1.tel_portable">Tél. portable</label><input type="tel" placeholder="+33 6 00 00 00 00"></div>
+        <div class="field"><label data-i18n="s1.email">E-mail</label><input type="email" data-i18n-ph="s2.email_archi_ph" placeholder="architecte@exemple.fr"></div>
       </div>
     </div>
 
@@ -140,161 +173,157 @@ body { font-family: 'DM Sans', Arial, sans-serif; background: var(--bg); color: 
     <div class="section">
       <div class="section-title">
         <div class="section-number">3</div>
-        <h2>Caractéristiques du projet</h2>
+        <h2 data-i18n="s3.title">Caractéristiques du projet</h2>
       </div>
 
-      <div class="sublabel">Nature du projet</div>
+      <div class="sublabel" data-i18n="s3.nature">Nature du projet</div>
       <div class="choice-group" id="natureProjet">
-        <label class="choice-item" onclick="selectRadio(this,'natureProjet')"><input type="radio" name="nature" value="renovation"> Rénovation</label>
-        <label class="choice-item" onclick="selectRadio(this,'natureProjet')"><input type="radio" name="nature" value="construction"> Construction neuve</label>
+        <label class="choice-item" onclick="selectRadio(this,'natureProjet')"><input type="radio" name="nature" value="renovation"> <span data-i18n="s3.renovation">Rénovation</span></label>
+        <label class="choice-item" onclick="selectRadio(this,'natureProjet')"><input type="radio" name="nature" value="construction"> <span data-i18n="s3.construction">Construction neuve</span></label>
       </div>
 
       <div class="divider"></div>
 
-      <div class="sublabel">Dimensions du bassin</div>
+      <div class="sublabel" data-i18n="s3.dimensions">Dimensions du bassin</div>
       <div class="g2">
-        <div class="field"><label>Longueur</label><div class="fwu"><input type="number" placeholder="0" min="0" step="0.1"><span class="unit">m</span></div></div>
-        <div class="field"><label>Largeur</label><div class="fwu"><input type="number" placeholder="0" min="0" step="0.1"><span class="unit">m</span></div></div>
-        <div class="field"><label>Hauteur d'eau petit bain</label><div class="fwu"><input type="number" placeholder="0" min="0"><span class="unit">cm</span></div></div>
-        <div class="field"><label>Hauteur d'eau grand bain</label><div class="fwu"><input type="number" placeholder="0" min="0"><span class="unit">cm</span></div></div>
-        <div class="field"><label>Si débordement — volume</label><div class="fwu"><input type="number" placeholder="—" min="0" step="0.1"><span class="unit">m³</span></div></div>
+        <div class="field"><label data-i18n="s3.longueur">Longueur</label><div class="fwu"><input type="number" placeholder="0" min="0" step="0.1"><span class="unit">m</span></div></div>
+        <div class="field"><label data-i18n="s3.largeur">Largeur</label><div class="fwu"><input type="number" placeholder="0" min="0" step="0.1"><span class="unit">m</span></div></div>
+        <div class="field"><label data-i18n="s3.haut_petit">Hauteur d'eau petit bain</label><div class="fwu"><input type="number" placeholder="0" min="0"><span class="unit">cm</span></div></div>
+        <div class="field"><label data-i18n="s3.haut_grand">Hauteur d'eau grand bain</label><div class="fwu"><input type="number" placeholder="0" min="0"><span class="unit">cm</span></div></div>
+        <div class="field"><label data-i18n="s3.debordement">Si débordement — volume</label><div class="fwu"><input type="number" placeholder="—" min="0" step="0.1"><span class="unit">m³</span></div></div>
       </div>
 
       <div class="divider"></div>
 
-      <div class="sublabel">Plan joint</div>
+      <div class="sublabel" data-i18n="s3.plan">Plan joint</div>
       <div class="choice-group" id="planJoint">
-        <label class="choice-item" onclick="selectRadio(this,'planJoint')"><input type="radio" name="plan" value="oui"> Oui</label>
-        <label class="choice-item" onclick="selectRadio(this,'planJoint')"><input type="radio" name="plan" value="non"> Non</label>
+        <label class="choice-item" onclick="selectRadio(this,'planJoint')"><input type="radio" name="plan" value="oui"> <span data-i18n="yes">Oui</span></label>
+        <label class="choice-item" onclick="selectRadio(this,'planJoint')"><input type="radio" name="plan" value="non"> <span data-i18n="no">Non</span></label>
       </div>
 
       <div class="divider"></div>
 
-      <div class="sublabel">Localisation du bassin</div>
+      <div class="sublabel" data-i18n="s3.localisation">Localisation du bassin</div>
       <div class="choice-group" id="localBassin">
-        <label class="choice-item" onclick="selectRadio(this,'localBassin')"><input type="radio" name="local" value="interieur"> Intérieur</label>
-        <label class="choice-item" onclick="selectRadio(this,'localBassin')"><input type="radio" name="local" value="exterieur"> Extérieur</label>
+        <label class="choice-item" onclick="selectRadio(this,'localBassin')"><input type="radio" name="local" value="interieur"> <span data-i18n="s3.interieur">Intérieur</span></label>
+        <label class="choice-item" onclick="selectRadio(this,'localBassin')"><input type="radio" name="local" value="exterieur"> <span data-i18n="s3.exterieur">Extérieur</span></label>
       </div>
 
-      <div class="sublabel">Position du bassin</div>
+      <div class="sublabel" data-i18n="s3.position">Position du bassin</div>
       <div class="choice-group" id="positionBassin">
-        <label class="choice-item" onclick="selectRadio(this,'positionBassin')"><input type="radio" name="position" value="enterree"> Enterrée</label>
-        <label class="choice-item" onclick="selectRadio(this,'positionBassin')"><input type="radio" name="position" value="semi-enterree"> Semi-enterrée</label>
-        <label class="choice-item" onclick="selectRadio(this,'positionBassin')"><input type="radio" name="position" value="hors-sol"> Hors-sol</label>
+        <label class="choice-item" onclick="selectRadio(this,'positionBassin')"><input type="radio" name="position" value="enterree"> <span data-i18n="s3.enterree">Enterrée</span></label>
+        <label class="choice-item" onclick="selectRadio(this,'positionBassin')"><input type="radio" name="position" value="semi-enterree"> <span data-i18n="s3.semi_enterree">Semi-enterrée</span></label>
+        <label class="choice-item" onclick="selectRadio(this,'positionBassin')"><input type="radio" name="position" value="hors-sol"> <span data-i18n="s3.hors_sol">Hors-sol</span></label>
       </div>
 
-      <div class="sublabel">Exposition</div>
-      <span class="choice-label">Vous pouvez sélectionner jusqu'à deux orientations</span>
+      <div class="sublabel" data-i18n="s3.exposition">Exposition</div>
+      <span class="choice-label" data-i18n="s3.exposition_hint">Vous pouvez sélectionner jusqu'à deux orientations</span>
       <div class="choice-group" id="exposition">
-        <label class="choice-item" onclick="selectExposition(this)"><input type="checkbox" name="exposition" value="ouest"> Ouest</label>
-        <label class="choice-item" onclick="selectExposition(this)"><input type="checkbox" name="exposition" value="nord"> Nord</label>
-        <label class="choice-item" onclick="selectExposition(this)"><input type="checkbox" name="exposition" value="est"> Est</label>
-        <label class="choice-item" onclick="selectExposition(this)"><input type="checkbox" name="exposition" value="sud"> Sud</label>
+        <label class="choice-item" onclick="selectExposition(this)"><input type="checkbox" name="exposition" value="ouest"> <span data-i18n="s3.ouest">Ouest</span></label>
+        <label class="choice-item" onclick="selectExposition(this)"><input type="checkbox" name="exposition" value="nord"> <span data-i18n="s3.nord">Nord</span></label>
+        <label class="choice-item" onclick="selectExposition(this)"><input type="checkbox" name="exposition" value="est"> <span data-i18n="s3.est">Est</span></label>
+        <label class="choice-item" onclick="selectExposition(this)"><input type="checkbox" name="exposition" value="sud"> <span data-i18n="s3.sud">Sud</span></label>
       </div>
 
-      <div class="sublabel">Environnement</div>
+      <div class="sublabel" data-i18n="s3.environnement">Environnement</div>
       <div class="choice-group" id="environnement">
-        <label class="choice-item" onclick="selectRadio(this,'environnement')"><input type="radio" name="env" value="urbain"> Urbain</label>
-        <label class="choice-item" onclick="selectRadio(this,'environnement')"><input type="radio" name="env" value="vegetalise"> Végétalisé</label>
-        <label class="choice-item" onclick="selectRadio(this,'environnement')"><input type="radio" name="env" value="campagne"> Campagne</label>
+        <label class="choice-item" onclick="selectRadio(this,'environnement')"><input type="radio" name="env" value="urbain"> <span data-i18n="s3.urbain">Urbain</span></label>
+        <label class="choice-item" onclick="selectRadio(this,'environnement')"><input type="radio" name="env" value="vegetalise"> <span data-i18n="s3.vegetalise">Végétalisé</span></label>
+        <label class="choice-item" onclick="selectRadio(this,'environnement')"><input type="radio" name="env" value="campagne"> <span data-i18n="s3.campagne">Campagne</span></label>
       </div>
 
       <div class="divider"></div>
 
-      <div class="sublabel">Équipement de couverture</div>
+      <div class="sublabel" data-i18n="s3.couverture">Équipement de couverture</div>
       <div class="choice-group" id="couverture">
-        <label class="choice-item" onclick="selectCheckbox(this)"><input type="checkbox" name="couverture" value="volet"> Volet</label>
-        <label class="choice-item" onclick="selectCheckbox(this)"><input type="checkbox" name="couverture" value="isothermique"> Couverture isothermique</label>
-        <label class="choice-item" onclick="selectCheckbox(this)"><input type="checkbox" name="couverture" value="barres"> Couverture à barres</label>
-        <label class="choice-item" onclick="selectCheckbox(this)"><input type="checkbox" name="couverture" value="autre"> Autre</label>
-        <label class="choice-item" onclick="selectCheckbox(this)"><input type="checkbox" name="couverture" value="sans"> Sans couverture</label>
+        <label class="choice-item" onclick="selectCheckbox(this)"><input type="checkbox" name="couverture" value="volet"> <span data-i18n="s3.volet">Volet</span></label>
+        <label class="choice-item" onclick="selectCheckbox(this)"><input type="checkbox" name="couverture" value="isothermique"> <span data-i18n="s3.isothermique">Couverture isothermique</span></label>
+        <label class="choice-item" onclick="selectCheckbox(this)"><input type="checkbox" name="couverture" value="barres"> <span data-i18n="s3.barres">Couverture à barres</span></label>
+        <label class="choice-item" onclick="selectCheckbox(this)"><input type="checkbox" name="couverture" value="autre"> <span data-i18n="other">Autre</span></label>
+        <label class="choice-item" onclick="selectCheckbox(this)"><input type="checkbox" name="couverture" value="sans"> <span data-i18n="s3.sans_couverture">Sans couverture</span></label>
       </div>
 
       <div class="divider"></div>
 
-      <div class="sublabel">Type de revêtement</div>
+      <div class="sublabel" data-i18n="s3.revetement">Type de revêtement</div>
       <div class="choice-group" id="revetement">
-        <label class="choice-item" onclick="selectCheckbox(this)"><input type="checkbox" name="revetement" value="pvc"> PVC armé</label>
-        <label class="choice-item" onclick="selectCheckbox(this)"><input type="checkbox" name="revetement" value="liner"> Liner</label>
-        <label class="choice-item" onclick="selectCheckbox(this)"><input type="checkbox" name="revetement" value="ceramique"> Céramique</label>
-        <label class="choice-item" onclick="selectCheckbox(this)"><input type="checkbox" name="revetement" value="autre"> Autre</label>
+        <label class="choice-item" onclick="selectCheckbox(this)"><input type="checkbox" name="revetement" value="pvc"> <span data-i18n="s3.pvc">PVC armé</span></label>
+        <label class="choice-item" onclick="selectCheckbox(this)"><input type="checkbox" name="revetement" value="liner"> <span data-i18n="s3.liner">Liner</span></label>
+        <label class="choice-item" onclick="selectCheckbox(this)"><input type="checkbox" name="revetement" value="ceramique"> <span data-i18n="s3.ceramique">Céramique</span></label>
+        <label class="choice-item" onclick="selectCheckbox(this)"><input type="checkbox" name="revetement" value="autre"> <span data-i18n="other">Autre</span></label>
       </div>
 
       <div class="divider"></div>
 
-      <div class="sublabel">Destination du bassin</div>
+      <div class="sublabel" data-i18n="s3.destination">Destination du bassin</div>
       <div class="choice-group" id="destination">
-        <label class="choice-item" onclick="selectRadio(this,'destination')"><input type="radio" name="dest" value="prive"> Privé</label>
-        <label class="choice-item" onclick="selectRadio(this,'destination')"><input type="radio" name="dest" value="collectif"> Collectif</label>
+        <label class="choice-item" onclick="selectRadio(this,'destination')"><input type="radio" name="dest" value="prive"> <span data-i18n="s3.prive">Privé</span></label>
+        <label class="choice-item" onclick="selectRadio(this,'destination')"><input type="radio" name="dest" value="collectif"> <span data-i18n="s3.collectif">Collectif</span></label>
       </div>
       <div style="margin-top:0.75rem;">
         <div class="field" style="max-width:360px;">
-          <label>Si collectif — taux de renouvellement d'eau / jour</label>
+          <label data-i18n="s3.taux_renouvellement">Si collectif — taux de renouvellement d'eau / jour</label>
           <div class="fwu"><input type="number" placeholder="—" min="0" step="0.1"><span class="unit">%</span></div>
         </div>
       </div>
 
       <div class="divider"></div>
 
-      <!-- ══ NOUVEAU : Dispositif de filtration ══ -->
-      <div class="sublabel">Dispositif de filtration</div>
+      <div class="sublabel" data-i18n="s3.filtration">Dispositif de filtration</div>
       <div class="choice-group" id="filtration">
-        <label class="choice-item" onclick="selectRadio(this,'filtration')"><input type="radio" name="filtration" value="sable"> Filtre à sable</label>
-        <label class="choice-item" onclick="selectRadio(this,'filtration')"><input type="radio" name="filtration" value="cartouche"> Cartouche filtrante</label>
-        <label class="choice-item" onclick="selectRadio(this,'filtration')"><input type="radio" name="filtration" value="diatomee"> Filtre à diatomée</label>
-        <label class="choice-item" onclick="selectRadio(this,'filtration')"><input type="radio" name="filtration" value="verre"> Verre filtrant</label>
-        <label class="choice-item" id="filtrationAutreBtn" onclick="selectRadio(this,'filtration');toggleAutreFiltration()"><input type="radio" name="filtration" value="autre"> Autre</label>
+        <label class="choice-item" onclick="selectRadio(this,'filtration')"><input type="radio" name="filtration" value="sable"> <span data-i18n="s3.filtre_sable">Filtre à sable</span></label>
+        <label class="choice-item" onclick="selectRadio(this,'filtration')"><input type="radio" name="filtration" value="cartouche"> <span data-i18n="s3.cartouche">Cartouche filtrante</span></label>
+        <label class="choice-item" onclick="selectRadio(this,'filtration')"><input type="radio" name="filtration" value="diatomee"> <span data-i18n="s3.diatomee">Filtre à diatomée</span></label>
+        <label class="choice-item" onclick="selectRadio(this,'filtration')"><input type="radio" name="filtration" value="verre"> <span data-i18n="s3.verre">Verre filtrant</span></label>
+        <label class="choice-item" id="filtrationAutreBtn" onclick="selectRadio(this,'filtration');toggleAutreFiltration()"><input type="radio" name="filtration" value="autre"> <span data-i18n="other">Autre</span></label>
       </div>
       <div class="inline-other" id="filtrationAutreField">
-        <span style="font-size:12px;color:var(--muted);">Préciser :</span>
-        <input type="text" id="filtrationAutreInput" placeholder="Préciser…">
+        <span style="font-size:12px;color:var(--muted);" data-i18n="specify">Préciser :</span>
+        <input type="text" id="filtrationAutreInput" data-i18n-ph="specify_ph" placeholder="Préciser…">
       </div>
 
       <div class="divider"></div>
 
-      <!-- ══ NOUVEAU : Dispositif de désinfection ══ -->
-      <div class="sublabel">Dispositif de désinfection</div>
-      <span class="choice-label">Plusieurs choix possibles</span>
+      <div class="sublabel" data-i18n="s3.desinfection">Dispositif de désinfection</div>
+      <span class="choice-label" data-i18n="multi_choice">Plusieurs choix possibles</span>
       <div class="choice-group" id="desinfection">
-        <label class="choice-item" onclick="selectCheckbox(this)"><input type="checkbox" name="desinfection" value="chlore-galet"> Chlore galet</label>
-        <label class="choice-item" onclick="selectCheckbox(this)"><input type="checkbox" name="desinfection" value="chlore-liquide"> Chlore liquide</label>
-        <label class="choice-item" onclick="selectCheckbox(this)"><input type="checkbox" name="desinfection" value="electrolyse"> Électrolyse de l'eau salée</label>
-        <label class="choice-item" onclick="selectCheckbox(this)"><input type="checkbox" name="desinfection" value="brome"> Brome</label>
-        <label class="choice-item" onclick="selectCheckbox(this)"><input type="checkbox" name="desinfection" value="oxygene"> Oxygène actif</label>
-        <label class="choice-item" onclick="selectCheckbox(this)"><input type="checkbox" name="desinfection" value="uv"> UV</label>
-        <label class="choice-item" id="desinfectionAutreBtn" onclick="selectCheckboxAutre(this,'desinfectionAutreField')"><input type="checkbox" name="desinfection" value="autre"> Autre</label>
+        <label class="choice-item" onclick="selectCheckbox(this)"><input type="checkbox" name="desinfection" value="chlore-galet"> <span data-i18n="s3.chlore_galet">Chlore galet</span></label>
+        <label class="choice-item" onclick="selectCheckbox(this)"><input type="checkbox" name="desinfection" value="chlore-liquide"> <span data-i18n="s3.chlore_liquide">Chlore liquide</span></label>
+        <label class="choice-item" onclick="selectCheckbox(this)"><input type="checkbox" name="desinfection" value="electrolyse"> <span data-i18n="s3.electrolyse">Électrolyse de l'eau salée</span></label>
+        <label class="choice-item" onclick="selectCheckbox(this)"><input type="checkbox" name="desinfection" value="brome"> <span data-i18n="s3.brome">Brome</span></label>
+        <label class="choice-item" onclick="selectCheckbox(this)"><input type="checkbox" name="desinfection" value="oxygene"> <span data-i18n="s3.oxygene">Oxygène actif</span></label>
+        <label class="choice-item" onclick="selectCheckbox(this)"><input type="checkbox" name="desinfection" value="uv"> <span>UV</span></label>
+        <label class="choice-item" id="desinfectionAutreBtn" onclick="selectCheckboxAutre(this,'desinfectionAutreField')"><input type="checkbox" name="desinfection" value="autre"> <span data-i18n="other">Autre</span></label>
       </div>
       <div class="inline-other" id="desinfectionAutreField">
-        <span style="font-size:12px;color:var(--muted);">Préciser :</span>
-        <input type="text" id="desinfectionAutreInput" placeholder="Préciser…">
+        <span style="font-size:12px;color:var(--muted);" data-i18n="specify">Préciser :</span>
+        <input type="text" id="desinfectionAutreInput" data-i18n-ph="specify_ph" placeholder="Préciser…">
       </div>
 
       <div class="divider"></div>
 
-      <!-- ══ NOUVEAU : Dispositif de régulation ══ -->
-      <div class="sublabel">Dispositif de régulation</div>
-      <span class="choice-label">Plusieurs choix possibles</span>
+      <div class="sublabel" data-i18n="s3.regulation">Dispositif de régulation</div>
+      <span class="choice-label" data-i18n="multi_choice">Plusieurs choix possibles</span>
       <div class="choice-group" id="regulation">
-        <label class="choice-item" onclick="selectCheckbox(this)"><input type="checkbox" name="regulation" value="ph"> pH</label>
-        <label class="choice-item" onclick="selectCheckbox(this)"><input type="checkbox" name="regulation" value="chlore"> Chlore</label>
+        <label class="choice-item" onclick="selectCheckbox(this)"><input type="checkbox" name="regulation" value="ph"> <span>pH</span></label>
+        <label class="choice-item" onclick="selectCheckbox(this)"><input type="checkbox" name="regulation" value="chlore"> <span data-i18n="s3.chlore_reg">Chlore</span></label>
       </div>
 
       <div class="divider"></div>
 
-      <!-- Dispositif de chauffage -->
-      <div class="sublabel">Dispositif de chauffage</div>
+      <div class="sublabel" data-i18n="s3.chauffage">Dispositif de chauffage</div>
       <div class="choice-group" id="chauffage">
-        <label class="choice-item" onclick="selectCheckbox(this)"><input type="checkbox" name="chauffage" value="pac"> Pompe à chaleur</label>
-        <label class="choice-item" onclick="selectCheckbox(this)"><input type="checkbox" name="chauffage" value="autre"> Autre</label>
-        <label class="choice-item" onclick="selectCheckbox(this)"><input type="checkbox" name="chauffage" value="sans"> Sans chauffage</label>
+        <label class="choice-item" onclick="selectCheckbox(this)"><input type="checkbox" name="chauffage" value="pac"> <span data-i18n="s3.pac">Pompe à chaleur</span></label>
+        <label class="choice-item" onclick="selectCheckbox(this)"><input type="checkbox" name="chauffage" value="autre"> <span data-i18n="other">Autre</span></label>
+        <label class="choice-item" onclick="selectCheckbox(this)"><input type="checkbox" name="chauffage" value="sans"> <span data-i18n="s3.sans_chauffage">Sans chauffage</span></label>
       </div>
 
-      <div class="sublabel">Dispositif de nettoyage</div>
+      <div class="sublabel" data-i18n="s3.nettoyage">Dispositif de nettoyage</div>
       <div class="choice-group" id="nettoyage">
-        <label class="choice-item" onclick="selectCheckbox(this)"><input type="checkbox" name="nettoyage" value="balai"> Balai manuel</label>
-        <label class="choice-item" onclick="selectCheckbox(this)"><input type="checkbox" name="nettoyage" value="robot-hydro"> Robot hydraulique</label>
-        <label class="choice-item" onclick="selectCheckbox(this)"><input type="checkbox" name="nettoyage" value="robot-elec"> Robot électrique</label>
-        <label class="choice-item" onclick="selectCheckbox(this)"><input type="checkbox" name="nettoyage" value="buses-fond"> Buses de nettoyage par le fond</label>
+        <label class="choice-item" onclick="selectCheckbox(this)"><input type="checkbox" name="nettoyage" value="balai"> <span data-i18n="s3.balai">Balai manuel</span></label>
+        <label class="choice-item" onclick="selectCheckbox(this)"><input type="checkbox" name="nettoyage" value="robot-hydro"> <span data-i18n="s3.robot_hydro">Robot hydraulique</span></label>
+        <label class="choice-item" onclick="selectCheckbox(this)"><input type="checkbox" name="nettoyage" value="robot-elec"> <span data-i18n="s3.robot_elec">Robot électrique</span></label>
+        <label class="choice-item" onclick="selectCheckbox(this)"><input type="checkbox" name="nettoyage" value="buses-fond"> <span data-i18n="s3.buses_fond">Buses de nettoyage par le fond</span></label>
       </div>
     </div>
 
@@ -302,37 +331,37 @@ body { font-family: 'DM Sans', Arial, sans-serif; background: var(--bg); color: 
     <div class="section">
       <div class="section-title">
         <div class="section-number">4</div>
-        <h2>Local technique</h2>
+        <h2 data-i18n="s4.title">Local technique</h2>
       </div>
 
-      <div class="sublabel">Porte d'accès &amp; dimensions du local</div>
+      <div class="sublabel" data-i18n="s4.porte_dim">Porte d'accès &amp; dimensions du local</div>
       <div class="g2">
-        <div class="field"><label>Hauteur de la porte</label><div class="fwu"><input type="number" placeholder="0" min="0"><span class="unit">cm</span></div></div>
-        <div class="field"><label>Largeur de la porte</label><div class="fwu"><input type="number" placeholder="0" min="0"><span class="unit">cm</span></div></div>
-        <div class="field"><label>Surface disponible</label><div class="fwu"><input type="number" placeholder="0" min="0" step="0.1"><span class="unit">m²</span></div></div>
-        <div class="field"><label>Hauteur sous plafond</label><div class="fwu"><input type="number" placeholder="0" min="0" step="0.01"><span class="unit">m</span></div></div>
-        <div class="field"><label>Altitude local technique / Piscine</label><div class="fwu"><input type="number" placeholder="0" step="0.1"><span class="unit">m</span></div></div>
+        <div class="field"><label data-i18n="s4.haut_porte">Hauteur de la porte</label><div class="fwu"><input type="number" placeholder="0" min="0"><span class="unit">cm</span></div></div>
+        <div class="field"><label data-i18n="s4.larg_porte">Largeur de la porte</label><div class="fwu"><input type="number" placeholder="0" min="0"><span class="unit">cm</span></div></div>
+        <div class="field"><label data-i18n="s4.surface">Surface disponible</label><div class="fwu"><input type="number" placeholder="0" min="0" step="0.1"><span class="unit">m²</span></div></div>
+        <div class="field"><label data-i18n="s4.haut_plafond">Hauteur sous plafond</label><div class="fwu"><input type="number" placeholder="0" min="0" step="0.01"><span class="unit">m</span></div></div>
+        <div class="field"><label data-i18n="s4.altitude">Altitude local technique / Piscine</label><div class="fwu"><input type="number" placeholder="0" step="0.1"><span class="unit">m</span></div></div>
       </div>
 
-      <div class="sublabel">Distance piscine / Local technique</div>
+      <div class="sublabel" data-i18n="s4.distance">Distance piscine / Local technique</div>
       <div class="field" style="max-width:280px;">
-        <label>Distance</label>
+        <label data-i18n="s4.distance_label">Distance</label>
         <div class="fwu"><input type="number" placeholder="0" min="0" step="0.5"><span class="unit">m</span></div>
       </div>
 
       <div class="divider"></div>
 
-      <div class="sublabel">Alimentation électrique</div>
+      <div class="sublabel" data-i18n="s4.alim_elec">Alimentation électrique</div>
       <div style="display:flex;gap:2rem;flex-wrap:wrap;">
         <div>
-          <span class="choice-label">Tension</span>
+          <span class="choice-label" data-i18n="s4.tension">Tension</span>
           <div class="choice-group" id="tension">
             <label class="choice-item" onclick="selectRadio(this,'tension')"><input type="radio" name="tension" value="230">230 V</label>
             <label class="choice-item" onclick="selectRadio(this,'tension')"><input type="radio" name="tension" value="400">400 V</label>
           </div>
         </div>
         <div>
-          <span class="choice-label">Fréquence</span>
+          <span class="choice-label" data-i18n="s4.frequence">Fréquence</span>
           <div class="choice-group" id="frequence">
             <label class="choice-item" onclick="selectRadio(this,'frequence')"><input type="radio" name="freq" value="50">50 Hz</label>
             <label class="choice-item" onclick="selectRadio(this,'frequence')"><input type="radio" name="freq" value="60">60 Hz</label>
@@ -342,75 +371,75 @@ body { font-family: 'DM Sans', Arial, sans-serif; background: var(--bg); color: 
 
       <div class="divider"></div>
 
-      <div class="sublabel">Eau &amp; évacuation</div>
+      <div class="sublabel" data-i18n="s4.eau_evac">Eau &amp; évacuation</div>
       <div style="display:flex;gap:1.5rem;flex-wrap:wrap;align-items:flex-end;">
         <div>
-          <span class="choice-label">Point d'eau dans le local</span>
+          <span class="choice-label" data-i18n="s4.point_eau">Point d'eau dans le local</span>
           <div class="choice-group" id="pointEau">
-            <label class="choice-item" onclick="selectRadio(this,'pointEau')"><input type="radio" name="peau" value="oui">Oui</label>
-            <label class="choice-item" onclick="selectRadio(this,'pointEau')"><input type="radio" name="peau" value="non">Non</label>
+            <label class="choice-item" onclick="selectRadio(this,'pointEau')"><input type="radio" name="peau" value="oui"><span data-i18n="yes">Oui</span></label>
+            <label class="choice-item" onclick="selectRadio(this,'pointEau')"><input type="radio" name="peau" value="non"><span data-i18n="no">Non</span></label>
           </div>
         </div>
         <div class="field" style="min-width:200px;">
-          <label>Pression du réseau d'eau</label>
+          <label data-i18n="s4.pression">Pression du réseau d'eau</label>
           <div class="fwu"><input type="number" placeholder="0" min="0" step="0.1"><span class="unit">bar</span></div>
         </div>
       </div>
 
       <div class="field" style="margin-top:0.9rem;max-width:400px;">
-        <label>Origine de l'eau de remplissage</label>
-        <input type="text" placeholder="Ex : réseau public, puits, forage…">
+        <label data-i18n="s4.origine_eau">Origine de l'eau de remplissage</label>
+        <input type="text" data-i18n-ph="s4.origine_eau_ph" placeholder="Ex : réseau public, puits, forage…">
       </div>
 
       <div style="display:flex;gap:1.5rem;flex-wrap:wrap;margin-top:1rem;align-items:flex-end;">
         <div>
-          <span class="choice-label">Présence d'une évacuation égout</span>
+          <span class="choice-label" data-i18n="s4.evacuation">Présence d'une évacuation égout</span>
           <div class="choice-group" id="evacuation">
-            <label class="choice-item" onclick="selectRadio(this,'evacuation')"><input type="radio" name="evac" value="oui">Oui</label>
-            <label class="choice-item" onclick="selectRadio(this,'evacuation')"><input type="radio" name="evac" value="non">Non</label>
+            <label class="choice-item" onclick="selectRadio(this,'evacuation')"><input type="radio" name="evac" value="oui"><span data-i18n="yes">Oui</span></label>
+            <label class="choice-item" onclick="selectRadio(this,'evacuation')"><input type="radio" name="evac" value="non"><span data-i18n="no">Non</span></label>
           </div>
         </div>
         <div class="field" style="min-width:180px;">
-          <label>Diamètre de l'évacuation</label>
+          <label data-i18n="s4.diam_evac">Diamètre de l'évacuation</label>
           <div class="fwu"><input type="number" placeholder="—" min="0"><span class="unit">cm</span></div>
         </div>
       </div>
 
       <div style="margin-top:1rem;">
-        <span class="choice-label">Diamètre des canalisations</span>
+        <span class="choice-label" data-i18n="s4.diam_cana">Diamètre des canalisations</span>
         <div class="choice-group" id="diametreCana">
           <label class="choice-item" onclick="selectRadio(this,'diametreCana')"><input type="radio" name="diamCana" value="50">50 mm</label>
           <label class="choice-item" onclick="selectRadio(this,'diametreCana')"><input type="radio" name="diamCana" value="63">63 mm</label>
-          <label class="choice-item" id="diametreCanaAutreBtn" onclick="selectRadio(this,'diametreCana');toggleAutreCana()"><input type="radio" name="diamCana" value="autre">Autre</label>
+          <label class="choice-item" id="diametreCanaAutreBtn" onclick="selectRadio(this,'diametreCana');toggleAutreCana()"><input type="radio" name="diamCana" value="autre"><span data-i18n="other">Autre</span></label>
         </div>
         <div class="inline-other" id="diametreCanaAutreField">
-          <span style="font-size:12px;color:var(--muted);">Préciser :</span>
-          <input type="text" id="diametreCanaAutreInput" placeholder="Diamètre en mm…">
+          <span style="font-size:12px;color:var(--muted);" data-i18n="specify">Préciser :</span>
+          <input type="text" id="diametreCanaAutreInput" data-i18n-ph="s4.cana_ph" placeholder="Diamètre en mm…">
         </div>
       </div>
 
       <div class="divider"></div>
       <div class="field" style="max-width:280px;">
-        <label>Consommation annuelle en eau</label>
+        <label data-i18n="s4.conso_eau">Consommation annuelle en eau</label>
         <div class="fwu"><input type="number" placeholder="0" min="0"><span class="unit">m³</span></div>
       </div>
 
       <div class="divider"></div>
 
-      <div class="sublabel">Connectivité</div>
+      <div class="sublabel" data-i18n="s4.connectivite">Connectivité</div>
       <div style="display:flex;gap:2rem;flex-wrap:wrap;">
         <div>
-          <span class="choice-label">Accès GSM dans le local</span>
+          <span class="choice-label" data-i18n="s4.gsm">Accès GSM dans le local</span>
           <div class="choice-group" id="gsm">
-            <label class="choice-item" onclick="selectRadio(this,'gsm')"><input type="radio" name="gsm" value="oui">Oui</label>
-            <label class="choice-item" onclick="selectRadio(this,'gsm')"><input type="radio" name="gsm" value="non">Non</label>
+            <label class="choice-item" onclick="selectRadio(this,'gsm')"><input type="radio" name="gsm" value="oui"><span data-i18n="yes">Oui</span></label>
+            <label class="choice-item" onclick="selectRadio(this,'gsm')"><input type="radio" name="gsm" value="non"><span data-i18n="no">Non</span></label>
           </div>
         </div>
         <div>
-          <span class="choice-label">Accès Ethernet dans le local</span>
+          <span class="choice-label" data-i18n="s4.ethernet">Accès Ethernet dans le local</span>
           <div class="choice-group" id="ethernet">
-            <label class="choice-item" onclick="selectRadio(this,'ethernet')"><input type="radio" name="eth" value="oui">Oui</label>
-            <label class="choice-item" onclick="selectRadio(this,'ethernet')"><input type="radio" name="eth" value="non">Non</label>
+            <label class="choice-item" onclick="selectRadio(this,'ethernet')"><input type="radio" name="eth" value="oui"><span data-i18n="yes">Oui</span></label>
+            <label class="choice-item" onclick="selectRadio(this,'ethernet')"><input type="radio" name="eth" value="non"><span data-i18n="no">Non</span></label>
           </div>
         </div>
       </div>
@@ -420,11 +449,11 @@ body { font-family: 'DM Sans', Arial, sans-serif; background: var(--bg); color: 
     <div class="section">
       <div class="section-title">
         <div class="section-number">5</div>
-        <h2>Remarques &amp; observations</h2>
+        <h2 data-i18n="s5.title">Remarques &amp; observations</h2>
       </div>
       <div class="field">
-        <label>Observations complémentaires</label>
-        <textarea rows="4" placeholder="Informations complémentaires, contraintes spécifiques, accès chantier…"></textarea>
+        <label data-i18n="s5.obs_label">Observations complémentaires</label>
+        <textarea rows="4" data-i18n-ph="s5.obs_ph" placeholder="Informations complémentaires, contraintes spécifiques, accès chantier…"></textarea>
       </div>
     </div>
 
@@ -436,7 +465,7 @@ body { font-family: 'DM Sans', Arial, sans-serif; background: var(--bg); color: 
         <div class="footer-line">tél. : +33 (0) 9 70 72 5000</div>
       </div>
       <div class="footer-actions">
-        <button class="btn" onclick="window.print()">Télécharger le PDF / Imprimer</button>
+        <button class="btn" onclick="window.print()" data-i18n="print_btn">Télécharger le PDF / Imprimer</button>
       </div>
     </div>
 
@@ -444,6 +473,198 @@ body { font-family: 'DM Sans', Arial, sans-serif; background: var(--bg); color: 
 </div>
 
 <script>
+/* ─── Translations ─────────────────────────────────────────── */
+const translations = {
+  fr: {
+    "header.title": "Questionnaire de qualification projet",
+    "header.subtitle": "Analyse & cadrage technique",
+    "yes": "Oui", "no": "Non", "other": "Autre",
+    "specify": "Préciser :", "specify_ph": "Préciser…",
+    "multi_choice": "Plusieurs choix possibles",
+    "print_btn": "Télécharger le PDF / Imprimer",
+    "s1.title": "Coordonnées du client",
+    "s1.societe": "Société", "s1.societe_ph": "Raison sociale",
+    "s1.adresse": "Adresse", "s1.adresse_ph": "3 rue…",
+    "s1.interlocuteur": "Interlocuteur", "s1.interlocuteur_ph": "Nom, prénom",
+    "s1.email": "E-mail", "s1.email_ph": "adresse@exemple.fr",
+    "s1.tel_bureau": "Tél. bureau", "s1.tel_portable": "Tél. portable",
+    "s1.client_cf": "Client CF group",
+    "s2.title": "Adresse du projet & Maître d'œuvre",
+    "s2.adresse_projet": "Adresse du projet",
+    "s2.archi": "Architecte / Maître d'œuvre",
+    "s2.nom_cabinet": "Nom / Cabinet", "s2.nom_cabinet_ph": "Nom ou raison sociale",
+    "s2.email_archi_ph": "architecte@exemple.fr",
+    "s3.title": "Caractéristiques du projet",
+    "s3.nature": "Nature du projet",
+    "s3.renovation": "Rénovation", "s3.construction": "Construction neuve",
+    "s3.dimensions": "Dimensions du bassin",
+    "s3.longueur": "Longueur", "s3.largeur": "Largeur",
+    "s3.haut_petit": "Hauteur d'eau petit bain",
+    "s3.haut_grand": "Hauteur d'eau grand bain",
+    "s3.debordement": "Si débordement — volume",
+    "s3.plan": "Plan joint",
+    "s3.localisation": "Localisation du bassin",
+    "s3.interieur": "Intérieur", "s3.exterieur": "Extérieur",
+    "s3.position": "Position du bassin",
+    "s3.enterree": "Enterrée", "s3.semi_enterree": "Semi-enterrée", "s3.hors_sol": "Hors-sol",
+    "s3.exposition": "Exposition",
+    "s3.exposition_hint": "Vous pouvez sélectionner jusqu'à deux orientations",
+    "s3.ouest": "Ouest", "s3.nord": "Nord", "s3.est": "Est", "s3.sud": "Sud",
+    "s3.environnement": "Environnement",
+    "s3.urbain": "Urbain", "s3.vegetalise": "Végétalisé", "s3.campagne": "Campagne",
+    "s3.couverture": "Équipement de couverture",
+    "s3.volet": "Volet", "s3.isothermique": "Couverture isothermique",
+    "s3.barres": "Couverture à barres", "s3.sans_couverture": "Sans couverture",
+    "s3.revetement": "Type de revêtement",
+    "s3.pvc": "PVC armé", "s3.liner": "Liner", "s3.ceramique": "Céramique",
+    "s3.destination": "Destination du bassin",
+    "s3.prive": "Privé", "s3.collectif": "Collectif",
+    "s3.taux_renouvellement": "Si collectif — taux de renouvellement d'eau / jour",
+    "s3.filtration": "Dispositif de filtration",
+    "s3.filtre_sable": "Filtre à sable", "s3.cartouche": "Cartouche filtrante",
+    "s3.diatomee": "Filtre à diatomée", "s3.verre": "Verre filtrant",
+    "s3.desinfection": "Dispositif de désinfection",
+    "s3.chlore_galet": "Chlore galet", "s3.chlore_liquide": "Chlore liquide",
+    "s3.electrolyse": "Électrolyse de l'eau salée", "s3.brome": "Brome",
+    "s3.oxygene": "Oxygène actif",
+    "s3.regulation": "Dispositif de régulation", "s3.chlore_reg": "Chlore",
+    "s3.chauffage": "Dispositif de chauffage",
+    "s3.pac": "Pompe à chaleur", "s3.sans_chauffage": "Sans chauffage",
+    "s3.nettoyage": "Dispositif de nettoyage",
+    "s3.balai": "Balai manuel", "s3.robot_hydro": "Robot hydraulique",
+    "s3.robot_elec": "Robot électrique", "s3.buses_fond": "Buses de nettoyage par le fond",
+    "s4.title": "Local technique",
+    "s4.porte_dim": "Porte d'accès & dimensions du local",
+    "s4.haut_porte": "Hauteur de la porte", "s4.larg_porte": "Largeur de la porte",
+    "s4.surface": "Surface disponible", "s4.haut_plafond": "Hauteur sous plafond",
+    "s4.altitude": "Altitude local technique / Piscine",
+    "s4.distance": "Distance piscine / Local technique",
+    "s4.distance_label": "Distance",
+    "s4.alim_elec": "Alimentation électrique",
+    "s4.tension": "Tension", "s4.frequence": "Fréquence",
+    "s4.eau_evac": "Eau & évacuation",
+    "s4.point_eau": "Point d'eau dans le local",
+    "s4.pression": "Pression du réseau d'eau",
+    "s4.origine_eau": "Origine de l'eau de remplissage",
+    "s4.origine_eau_ph": "Ex : réseau public, puits, forage…",
+    "s4.evacuation": "Présence d'une évacuation égout",
+    "s4.diam_evac": "Diamètre de l'évacuation",
+    "s4.diam_cana": "Diamètre des canalisations",
+    "s4.cana_ph": "Diamètre en mm…",
+    "s4.conso_eau": "Consommation annuelle en eau",
+    "s4.connectivite": "Connectivité",
+    "s4.gsm": "Accès GSM dans le local",
+    "s4.ethernet": "Accès Ethernet dans le local",
+    "s5.title": "Remarques & observations",
+    "s5.obs_label": "Observations complémentaires",
+    "s5.obs_ph": "Informations complémentaires, contraintes spécifiques, accès chantier…"
+  },
+  en: {
+    "header.title": "Project Qualification Questionnaire",
+    "header.subtitle": "Technical analysis & scoping",
+    "yes": "Yes", "no": "No", "other": "Other",
+    "specify": "Specify:", "specify_ph": "Specify…",
+    "multi_choice": "Multiple choices possible",
+    "print_btn": "Download PDF / Print",
+    "s1.title": "Client information",
+    "s1.societe": "Company", "s1.societe_ph": "Legal name",
+    "s1.adresse": "Address", "s1.adresse_ph": "3 street…",
+    "s1.interlocuteur": "Contact person", "s1.interlocuteur_ph": "Last name, first name",
+    "s1.email": "E-mail", "s1.email_ph": "address@example.com",
+    "s1.tel_bureau": "Office phone", "s1.tel_portable": "Mobile phone",
+    "s1.client_cf": "CF group client",
+    "s2.title": "Project address & Project manager",
+    "s2.adresse_projet": "Project address",
+    "s2.archi": "Architect / Project manager",
+    "s2.nom_cabinet": "Name / Firm", "s2.nom_cabinet_ph": "Name or legal name",
+    "s2.email_archi_ph": "architect@example.com",
+    "s3.title": "Project characteristics",
+    "s3.nature": "Project type",
+    "s3.renovation": "Renovation", "s3.construction": "New build",
+    "s3.dimensions": "Pool dimensions",
+    "s3.longueur": "Length", "s3.largeur": "Width",
+    "s3.haut_petit": "Shallow end water depth",
+    "s3.haut_grand": "Deep end water depth",
+    "s3.debordement": "If overflow — volume",
+    "s3.plan": "Plan attached",
+    "s3.localisation": "Pool location",
+    "s3.interieur": "Indoor", "s3.exterieur": "Outdoor",
+    "s3.position": "Pool position",
+    "s3.enterree": "In-ground", "s3.semi_enterree": "Semi in-ground", "s3.hors_sol": "Above ground",
+    "s3.exposition": "Exposure",
+    "s3.exposition_hint": "You may select up to two orientations",
+    "s3.ouest": "West", "s3.nord": "North", "s3.est": "East", "s3.sud": "South",
+    "s3.environnement": "Environment",
+    "s3.urbain": "Urban", "s3.vegetalise": "Landscaped", "s3.campagne": "Rural",
+    "s3.couverture": "Cover equipment",
+    "s3.volet": "Roller shutter", "s3.isothermique": "Isothermal cover",
+    "s3.barres": "Bar cover", "s3.sans_couverture": "No cover",
+    "s3.revetement": "Liner type",
+    "s3.pvc": "Reinforced PVC", "s3.liner": "Liner", "s3.ceramique": "Ceramic",
+    "s3.destination": "Pool use",
+    "s3.prive": "Private", "s3.collectif": "Public / Shared",
+    "s3.taux_renouvellement": "If public — daily water renewal rate",
+    "s3.filtration": "Filtration system",
+    "s3.filtre_sable": "Sand filter", "s3.cartouche": "Cartridge filter",
+    "s3.diatomee": "Diatomite filter", "s3.verre": "Filter glass",
+    "s3.desinfection": "Disinfection system",
+    "s3.chlore_galet": "Chlorine tablets", "s3.chlore_liquide": "Liquid chlorine",
+    "s3.electrolyse": "Salt water electrolysis", "s3.brome": "Bromine",
+    "s3.oxygene": "Active oxygen",
+    "s3.regulation": "Regulation system", "s3.chlore_reg": "Chlorine",
+    "s3.chauffage": "Heating system",
+    "s3.pac": "Heat pump", "s3.sans_chauffage": "No heating",
+    "s3.nettoyage": "Cleaning system",
+    "s3.balai": "Manual brush", "s3.robot_hydro": "Hydraulic robot",
+    "s3.robot_elec": "Electric robot", "s3.buses_fond": "Bottom cleaning jets",
+    "s4.title": "Equipment room",
+    "s4.porte_dim": "Access door & room dimensions",
+    "s4.haut_porte": "Door height", "s4.larg_porte": "Door width",
+    "s4.surface": "Available floor area", "s4.haut_plafond": "Ceiling height",
+    "s4.altitude": "Equipment room elevation vs. pool",
+    "s4.distance": "Pool / Equipment room distance",
+    "s4.distance_label": "Distance",
+    "s4.alim_elec": "Electrical supply",
+    "s4.tension": "Voltage", "s4.frequence": "Frequency",
+    "s4.eau_evac": "Water & drainage",
+    "s4.point_eau": "Water supply in the room",
+    "s4.pression": "Water network pressure",
+    "s4.origine_eau": "Water filling source",
+    "s4.origine_eau_ph": "E.g.: public network, well, borehole…",
+    "s4.evacuation": "Sewer drain present",
+    "s4.diam_evac": "Drain diameter",
+    "s4.diam_cana": "Pipe diameter",
+    "s4.cana_ph": "Diameter in mm…",
+    "s4.conso_eau": "Annual water consumption",
+    "s4.connectivite": "Connectivity",
+    "s4.gsm": "GSM signal in the room",
+    "s4.ethernet": "Ethernet access in the room",
+    "s5.title": "Remarks & observations",
+    "s5.obs_label": "Additional observations",
+    "s5.obs_ph": "Additional information, specific constraints, site access…"
+  }
+};
+
+let currentLang = 'fr';
+
+function setLang(lang) {
+  currentLang = lang;
+  document.getElementById('btnFR').classList.toggle('active', lang === 'fr');
+  document.getElementById('btnEN').classList.toggle('active', lang === 'en');
+  document.documentElement.lang = lang;
+  const t = translations[lang];
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (t[key] !== undefined) el.innerHTML = t[key];
+  });
+  document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+    const key = el.getAttribute('data-i18n-ph');
+    if (t[key] !== undefined) el.placeholder = t[key];
+  });
+  document.title = lang === 'en' ? 'Purity Project Questionnaire' : 'Questionnaire Purity';
+}
+
+/* ─── Original interaction logic ─── */
 function selectRadio(el, groupId) {
   const group = document.getElementById(groupId);
   if (!group) return;

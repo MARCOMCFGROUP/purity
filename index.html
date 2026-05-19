@@ -118,6 +118,7 @@ body { font-family: 'DM Sans', Arial, sans-serif; background: var(--bg); color: 
     <div class="lang-toggle">
       <button class="lang-btn active" id="btnFR" onclick="setLang('fr')">FR</button>
       <button class="lang-btn" id="btnEN" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" id="btnDE" onclick="setLang('de')">DE</button>
     </div>
   </div>
 
@@ -652,6 +653,94 @@ const translations = {
     "s5.title": "Remarks & observations",
     "s5.obs_label": "Additional observations",
     "s5.obs_ph": "Additional information, specific constraints, site access…"
+  },
+  de: {
+    "header.title": "Projektqualifizierungs-Fragebogen",
+    "header.subtitle": "Technische Analyse & Rahmenbedingungen",
+    "yes": "Ja", "no": "Nein", "other": "Sonstiges",
+    "specify": "Bitte angeben:", "specify_ph": "Angeben…",
+    "multi_choice": "Mehrfachauswahl möglich",
+    "print_btn": "PDF herunterladen / Drucken",
+    "footer.line1": "AQUALUX SAS — ZA de la Massane, 287 route de la Massane, 13210 Saint-Rémy-de-Provence, Frankreich",
+    "footer.line2": "E-Mail: bluehorizon@cf.group",
+    "footer.line3": "Handelsreg. 390 039 949 Tarascon — Stammkapital 1.500.000 € — USt-IdNr. FR32 390 039 949",
+    "footer.line4": "Tel.: +33 (0) 9 70 72 5000",
+    "s1.title": "Kundendaten",
+    "s1.societe": "Unternehmen", "s1.societe_ph": "Firmenname",
+    "s1.adresse": "Adresse", "s1.adresse_ph": "Musterstraße 3…",
+    "s1.interlocuteur": "Ansprechpartner", "s1.interlocuteur_ph": "Nachname, Vorname",
+    "s1.email": "E-Mail", "s1.email_ph": "adresse@beispiel.de",
+    "s1.tel_bureau": "Bürotelefon", "s1.tel_portable": "Mobiltelefon",
+    "s1.client_cf": "CF-Gruppe Kunde",
+    "s2.title": "Projektadresse & Bauleitung",
+    "s2.adresse_projet": "Projektadresse",
+    "s2.archi": "Architekt / Bauleitung",
+    "s2.nom_cabinet": "Name / Büro", "s2.nom_cabinet_ph": "Name oder Firmenname",
+    "s2.email_archi_ph": "architekt@beispiel.de",
+    "s3.title": "Projekteigenschaften",
+    "s3.nature": "Projektart",
+    "s3.renovation": "Renovierung", "s3.construction": "Neubau",
+    "s3.dimensions": "Beckenabmessungen",
+    "s3.longueur": "Länge", "s3.largeur": "Breite",
+    "s3.haut_petit": "Wassertiefe Flachwasserbereich",
+    "s3.haut_grand": "Wassertiefe Tiefwasserbereich",
+    "s3.debordement": "Bei Überlauf — Volumen",
+    "s3.plan": "Plan beigefügt",
+    "s3.localisation": "Beckenlage",
+    "s3.interieur": "Innen", "s3.exterieur": "Außen",
+    "s3.position": "Beckenposition",
+    "s3.enterree": "Versenkt", "s3.semi_enterree": "Halbversenkt", "s3.hors_sol": "Oberirdisch",
+    "s3.exposition": "Ausrichtung",
+    "s3.exposition_hint": "Sie können bis zu zwei Ausrichtungen auswählen",
+    "s3.ouest": "West", "s3.nord": "Nord", "s3.est": "Ost", "s3.sud": "Süd",
+    "s3.environnement": "Umgebung",
+    "s3.urbain": "Städtisch", "s3.vegetalise": "Begrünt", "s3.campagne": "Ländlich",
+    "s3.couverture": "Abdeckung",
+    "s3.volet": "Rollabd.", "s3.isothermique": "Wärmedämmende Abdeckung",
+    "s3.barres": "Leistenabdeckung", "s3.sans_couverture": "Ohne Abdeckung",
+    "s3.revetement": "Beckenauskleidung",
+    "s3.pvc": "Armiertes PVC", "s3.liner": "Liner", "s3.ceramique": "Keramik",
+    "s3.destination": "Beckennutzung",
+    "s3.prive": "Privat", "s3.collectif": "Öffentlich / Gemeinschaftlich",
+    "s3.taux_renouvellement": "Bei öffentlich — täglicher Wassererneuerungsgrad",
+    "s3.filtration": "Filtrationsanlage",
+    "s3.filtre_sable": "Sandfilter", "s3.cartouche": "Kartuschenfilter",
+    "s3.diatomee": "Diatomeenfilter", "s3.verre": "Filterglas",
+    "s3.desinfection": "Desinfektionsanlage",
+    "s3.chlore_galet": "Chlortabletten", "s3.chlore_liquide": "Flüssigchlor",
+    "s3.electrolyse": "Salzwasserelektrolyse", "s3.brome": "Brom",
+    "s3.oxygene": "Aktivsauerstoff",
+    "s3.regulation": "Regelungsanlage", "s3.chlore_reg": "Chlor",
+    "s3.chauffage": "Heizungsanlage",
+    "s3.pac": "Wärmepumpe", "s3.sans_chauffage": "Ohne Heizung",
+    "s3.nettoyage": "Reinigungsanlage",
+    "s3.balai": "Handkescher", "s3.robot_hydro": "Hydraulikroboter",
+    "s3.robot_elec": "Elektrischer Roboter", "s3.buses_fond": "Bodendüsen-Reinigung",
+    "s4.title": "Technikraum",
+    "s4.porte_dim": "Zugangstür & Raumabmessungen",
+    "s4.haut_porte": "Türhöhe", "s4.larg_porte": "Türbreite",
+    "s4.surface": "Verfügbare Fläche", "s4.haut_plafond": "Raumhöhe",
+    "s4.altitude": "Höhe Technikraum / Becken",
+    "s4.distance": "Abstand Becken / Technikraum",
+    "s4.distance_label": "Abstand",
+    "s4.alim_elec": "Stromversorgung",
+    "s4.tension": "Spannung", "s4.frequence": "Frequenz",
+    "s4.eau_evac": "Wasser & Entwässerung",
+    "s4.point_eau": "Wasseranschluss im Raum",
+    "s4.pression": "Wasserleitungsdruck",
+    "s4.origine_eau": "Wasserfüllquelle",
+    "s4.origine_eau_ph": "Z.B.: öffentliches Netz, Brunnen, Bohrung…",
+    "s4.evacuation": "Kanalanschluss vorhanden",
+    "s4.diam_evac": "Abflussdurchmesser",
+    "s4.diam_cana": "Rohrdurchmesser",
+    "s4.cana_ph": "Durchmesser in mm…",
+    "s4.conso_eau": "Jährlicher Wasserverbrauch",
+    "s4.connectivite": "Konnektivität",
+    "s4.gsm": "GSM-Empfang im Raum",
+    "s4.ethernet": "Ethernet-Zugang im Raum",
+    "s5.title": "Anmerkungen & Beobachtungen",
+    "s5.obs_label": "Zusätzliche Anmerkungen",
+    "s5.obs_ph": "Zusätzliche Informationen, spezifische Einschränkungen, Zugang zur Baustelle…"
   }
 };
 
@@ -661,6 +750,7 @@ function setLang(lang) {
   currentLang = lang;
   document.getElementById('btnFR').classList.toggle('active', lang === 'fr');
   document.getElementById('btnEN').classList.toggle('active', lang === 'en');
+  document.getElementById('btnDE').classList.toggle('active', lang === 'de');
   document.documentElement.lang = lang;
   const t = translations[lang];
   document.querySelectorAll('[data-i18n]').forEach(el => {
@@ -671,7 +761,7 @@ function setLang(lang) {
     const key = el.getAttribute('data-i18n-ph');
     if (t[key] !== undefined) el.placeholder = t[key];
   });
-  document.title = lang === 'en' ? 'Purity Project Questionnaire' : 'Questionnaire Purity';
+  document.title = lang === 'en' ? 'Purity Project Questionnaire' : lang === 'de' ? 'Purity Projektfragebogen' : 'Questionnaire Purity';
 }
 
 function selectRadio(el, groupId) {

@@ -60,36 +60,45 @@ body { font-family: 'DM Sans', Arial, sans-serif; background: var(--bg); color: 
 .btn-primary { background: var(--accent); color: var(--primary); border: none; font-weight: 700; }
 .btn-primary:hover { opacity: 0.9; }
 .btn:hover { border-color: var(--accent); }
-.inline-other { display: none; margin-top: 8px; }
-.inline-other input { border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 7px 12px; font-size: 13px; font-family: 'DM Sans', Arial, sans-serif; background: #fafafa; outline: none; width: 220px; transition: 0.2s; }
-.inline-other input:focus { border-color: var(--accent); background: white; box-shadow: 0 0 0 3px rgba(220,193,140,0.25); }
-.inline-other.visible { display: flex; align-items: center; gap: 8px; }
+
+/* ── Champ "Autre" générique ── */
+.autre-field {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+.autre-field.visible { display: flex; }
+.autre-field span { font-size: 12px; color: var(--muted); white-space: nowrap; }
+.autre-field input {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 7px 12px;
+  font-size: 13px;
+  font-family: 'DM Sans', Arial, sans-serif;
+  background: #fafafa;
+  outline: none;
+  width: 260px;
+  transition: 0.2s;
+}
+.autre-field input:focus {
+  border-color: var(--accent);
+  background: white;
+  box-shadow: 0 0 0 3px rgba(220,193,140,0.25);
+}
 
 .lang-toggle {
-  display: flex;
-  align-items: center;
-  gap: 0;
+  display: flex; align-items: center; gap: 0;
   border: 1.5px solid rgba(255,255,255,0.35);
-  border-radius: 20px;
-  overflow: hidden;
-  flex-shrink: 0;
+  border-radius: 20px; overflow: hidden; flex-shrink: 0;
 }
 .lang-btn {
   font-family: 'DM Sans', Arial, sans-serif;
-  font-size: 12px;
-  font-weight: 600;
-  padding: 5px 14px;
-  cursor: pointer;
-  border: none;
-  background: transparent;
-  color: rgba(255,255,255,0.55);
-  letter-spacing: 0.5px;
-  transition: 0.2s;
+  font-size: 12px; font-weight: 600; padding: 5px 14px;
+  cursor: pointer; border: none; background: transparent;
+  color: rgba(255,255,255,0.55); letter-spacing: 0.5px; transition: 0.2s;
 }
-.lang-btn.active {
-  background: var(--accent);
-  color: var(--primary);
-}
+.lang-btn.active { background: var(--accent); color: var(--primary); }
 .lang-btn:hover:not(.active) { color: white; }
 
 @media (max-width: 600px) {
@@ -100,6 +109,7 @@ body { font-family: 'DM Sans', Arial, sans-serif; background: var(--bg); color: 
   .header-left { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
   .footer { flex-direction: column; }
   .footer-left { max-width: 100%; }
+  .autre-field input { width: 100%; }
 }
 @media print { body { background: white; } .footer-actions, .progress-bar, .lang-toggle { display: none; } }
 </style>
@@ -243,8 +253,12 @@ body { font-family: 'DM Sans', Arial, sans-serif; background: var(--bg); color: 
         <label class="choice-item" onclick="selectCheckbox(this)"><input type="checkbox" name="couverture" value="volet"> <span data-i18n="s3.volet">Volet</span></label>
         <label class="choice-item" onclick="selectCheckbox(this)"><input type="checkbox" name="couverture" value="isothermique"> <span data-i18n="s3.isothermique">Couverture isothermique</span></label>
         <label class="choice-item" onclick="selectCheckbox(this)"><input type="checkbox" name="couverture" value="barres"> <span data-i18n="s3.barres">Couverture à barres</span></label>
-        <label class="choice-item" onclick="selectCheckbox(this)"><input type="checkbox" name="couverture" value="autre"> <span data-i18n="other">Autre</span></label>
+        <label class="choice-item" onclick="selectCheckboxAutre(this,'autre-couverture')"><input type="checkbox" name="couverture" value="autre"> <span data-i18n="other">Autre</span></label>
         <label class="choice-item" onclick="selectCheckbox(this)"><input type="checkbox" name="couverture" value="sans"> <span data-i18n="s3.sans_couverture">Sans couverture</span></label>
+      </div>
+      <div class="autre-field" id="autre-couverture">
+        <span data-i18n="specify">Préciser :</span>
+        <input type="text" data-i18n-ph="specify_ph" placeholder="Préciser…">
       </div>
 
       <div class="divider"></div>
@@ -254,7 +268,11 @@ body { font-family: 'DM Sans', Arial, sans-serif; background: var(--bg); color: 
         <label class="choice-item" onclick="selectCheckbox(this)"><input type="checkbox" name="revetement" value="pvc"> <span data-i18n="s3.pvc">PVC armé</span></label>
         <label class="choice-item" onclick="selectCheckbox(this)"><input type="checkbox" name="revetement" value="liner"> <span data-i18n="s3.liner">Liner</span></label>
         <label class="choice-item" onclick="selectCheckbox(this)"><input type="checkbox" name="revetement" value="ceramique"> <span data-i18n="s3.ceramique">Céramique</span></label>
-        <label class="choice-item" onclick="selectCheckbox(this)"><input type="checkbox" name="revetement" value="autre"> <span data-i18n="other">Autre</span></label>
+        <label class="choice-item" onclick="selectCheckboxAutre(this,'autre-revetement')"><input type="checkbox" name="revetement" value="autre"> <span data-i18n="other">Autre</span></label>
+      </div>
+      <div class="autre-field" id="autre-revetement">
+        <span data-i18n="specify">Préciser :</span>
+        <input type="text" data-i18n-ph="specify_ph" placeholder="Préciser…">
       </div>
 
       <div class="divider"></div>
@@ -279,11 +297,11 @@ body { font-family: 'DM Sans', Arial, sans-serif; background: var(--bg); color: 
         <label class="choice-item" onclick="selectRadio(this,'filtration')"><input type="radio" name="filtration" value="cartouche"> <span data-i18n="s3.cartouche">Cartouche filtrante</span></label>
         <label class="choice-item" onclick="selectRadio(this,'filtration')"><input type="radio" name="filtration" value="diatomee"> <span data-i18n="s3.diatomee">Filtre à diatomée</span></label>
         <label class="choice-item" onclick="selectRadio(this,'filtration')"><input type="radio" name="filtration" value="verre"> <span data-i18n="s3.verre">Verre filtrant</span></label>
-        <label class="choice-item" id="filtrationAutreBtn" onclick="selectRadio(this,'filtration');toggleAutreFiltration()"><input type="radio" name="filtration" value="autre"> <span data-i18n="other">Autre</span></label>
+        <label class="choice-item" onclick="selectRadioAutre(this,'filtration','autre-filtration')"><input type="radio" name="filtration" value="autre"> <span data-i18n="other">Autre</span></label>
       </div>
-      <div class="inline-other" id="filtrationAutreField">
-        <span style="font-size:12px;color:var(--muted);" data-i18n="specify">Préciser :</span>
-        <input type="text" id="filtrationAutreInput" data-i18n-ph="specify_ph" placeholder="Préciser…">
+      <div class="autre-field" id="autre-filtration">
+        <span data-i18n="specify">Préciser :</span>
+        <input type="text" data-i18n-ph="specify_ph" placeholder="Préciser…">
       </div>
 
       <div class="divider"></div>
@@ -297,11 +315,11 @@ body { font-family: 'DM Sans', Arial, sans-serif; background: var(--bg); color: 
         <label class="choice-item" onclick="selectCheckbox(this)"><input type="checkbox" name="desinfection" value="brome"> <span data-i18n="s3.brome">Brome</span></label>
         <label class="choice-item" onclick="selectCheckbox(this)"><input type="checkbox" name="desinfection" value="oxygene"> <span data-i18n="s3.oxygene">Oxygène actif</span></label>
         <label class="choice-item" onclick="selectCheckbox(this)"><input type="checkbox" name="desinfection" value="uv"> <span>UV</span></label>
-        <label class="choice-item" id="desinfectionAutreBtn" onclick="selectCheckboxAutre(this,'desinfectionAutreField')"><input type="checkbox" name="desinfection" value="autre"> <span data-i18n="other">Autre</span></label>
+        <label class="choice-item" onclick="selectCheckboxAutre(this,'autre-desinfection')"><input type="checkbox" name="desinfection" value="autre"> <span data-i18n="other">Autre</span></label>
       </div>
-      <div class="inline-other" id="desinfectionAutreField">
-        <span style="font-size:12px;color:var(--muted);" data-i18n="specify">Préciser :</span>
-        <input type="text" id="desinfectionAutreInput" data-i18n-ph="specify_ph" placeholder="Préciser…">
+      <div class="autre-field" id="autre-desinfection">
+        <span data-i18n="specify">Préciser :</span>
+        <input type="text" data-i18n-ph="specify_ph" placeholder="Préciser…">
       </div>
 
       <div class="divider"></div>
@@ -318,8 +336,12 @@ body { font-family: 'DM Sans', Arial, sans-serif; background: var(--bg); color: 
       <div class="sublabel" data-i18n="s3.chauffage">Dispositif de chauffage</div>
       <div class="choice-group" id="chauffage">
         <label class="choice-item" onclick="selectCheckbox(this)"><input type="checkbox" name="chauffage" value="pac"> <span data-i18n="s3.pac">Pompe à chaleur</span></label>
-        <label class="choice-item" onclick="selectCheckbox(this)"><input type="checkbox" name="chauffage" value="autre"> <span data-i18n="other">Autre</span></label>
+        <label class="choice-item" onclick="selectCheckboxAutre(this,'autre-chauffage')"><input type="checkbox" name="chauffage" value="autre"> <span data-i18n="other">Autre</span></label>
         <label class="choice-item" onclick="selectCheckbox(this)"><input type="checkbox" name="chauffage" value="sans"> <span data-i18n="s3.sans_chauffage">Sans chauffage</span></label>
+      </div>
+      <div class="autre-field" id="autre-chauffage">
+        <span data-i18n="specify">Préciser :</span>
+        <input type="text" data-i18n-ph="specify_ph" placeholder="Préciser…">
       </div>
 
       <div class="sublabel" data-i18n="s3.nettoyage">Dispositif de nettoyage</div>
@@ -414,11 +436,11 @@ body { font-family: 'DM Sans', Arial, sans-serif; background: var(--bg); color: 
         <div class="choice-group" id="diametreCana">
           <label class="choice-item" onclick="selectRadio(this,'diametreCana')"><input type="radio" name="diamCana" value="50">50 mm</label>
           <label class="choice-item" onclick="selectRadio(this,'diametreCana')"><input type="radio" name="diamCana" value="63">63 mm</label>
-          <label class="choice-item" id="diametreCanaAutreBtn" onclick="selectRadio(this,'diametreCana');toggleAutreCana()"><input type="radio" name="diamCana" value="autre"><span data-i18n="other">Autre</span></label>
+          <label class="choice-item" onclick="selectRadioAutre(this,'diametreCana','autre-diam-cana')"><input type="radio" name="diamCana" value="autre"><span data-i18n="other">Autre</span></label>
         </div>
-        <div class="inline-other" id="diametreCanaAutreField">
-          <span style="font-size:12px;color:var(--muted);" data-i18n="specify">Préciser :</span>
-          <input type="text" id="diametreCanaAutreInput" data-i18n-ph="s4.cana_ph" placeholder="Diamètre en mm…">
+        <div class="autre-field" id="autre-diam-cana">
+          <span data-i18n="specify">Préciser :</span>
+          <input type="text" data-i18n-ph="s4.cana_ph" placeholder="Diamètre en mm…">
         </div>
       </div>
 
@@ -477,6 +499,7 @@ body { font-family: 'DM Sans', Arial, sans-serif; background: var(--bg); color: 
 </div>
 
 <script>
+/* ─────────── Traductions ─────────── */
 const translations = {
   fr: {
     "header.title": "Questionnaire de qualification projet",
@@ -696,7 +719,7 @@ const translations = {
     "s3.environnement": "Umgebung",
     "s3.urbain": "Städtisch", "s3.vegetalise": "Begrünt", "s3.campagne": "Ländlich",
     "s3.couverture": "Abdeckung",
-    "s3.volet": "Rollabd.", "s3.isothermique": "Wärmedämmende Abdeckung",
+    "s3.volet": "Rollabdeckung", "s3.isothermique": "Wärmedämmende Abdeckung",
     "s3.barres": "Leistenabdeckung", "s3.sans_couverture": "Ohne Abdeckung",
     "s3.revetement": "Beckenauskleidung",
     "s3.pvc": "Armiertes PVC", "s3.liner": "Liner", "s3.ceramique": "Keramik",
@@ -744,26 +767,26 @@ const translations = {
   }
 };
 
+/* ─────────── i18n ─────────── */
 let currentLang = 'fr';
 
 function setLang(lang) {
   currentLang = lang;
-  document.getElementById('btnFR').classList.toggle('active', lang === 'fr');
-  document.getElementById('btnEN').classList.toggle('active', lang === 'en');
-  document.getElementById('btnDE').classList.toggle('active', lang === 'de');
+  ['FR','EN','DE'].forEach(l => document.getElementById('btn'+l).classList.toggle('active', lang === l.toLowerCase()));
   document.documentElement.lang = lang;
   const t = translations[lang];
   document.querySelectorAll('[data-i18n]').forEach(el => {
-    const key = el.getAttribute('data-i18n');
-    if (t[key] !== undefined) el.innerHTML = t[key];
+    const v = t[el.getAttribute('data-i18n')];
+    if (v !== undefined) el.innerHTML = v;
   });
   document.querySelectorAll('[data-i18n-ph]').forEach(el => {
-    const key = el.getAttribute('data-i18n-ph');
-    if (t[key] !== undefined) el.placeholder = t[key];
+    const v = t[el.getAttribute('data-i18n-ph')];
+    if (v !== undefined) el.placeholder = v;
   });
   document.title = lang === 'en' ? 'Purity Project Questionnaire' : lang === 'de' ? 'Purity Projektfragebogen' : 'Questionnaire Purity';
 }
 
+/* ─────────── Sélection radio simple ─────────── */
 function selectRadio(el, groupId) {
   const group = document.getElementById(groupId);
   if (!group) return;
@@ -772,28 +795,70 @@ function selectRadio(el, groupId) {
   updateProgress();
 }
 
+/* ─────────── Radio avec champ "Autre" ─────────── */
+function selectRadioAutre(el, groupId, fieldId) {
+  selectRadio(el, groupId);
+  // Masquer tous les champs autre du même groupe de radios
+  const group = document.getElementById(groupId);
+  if (group) {
+    group.querySelectorAll('input[type="radio"]').forEach(r => {
+      if (r.value !== 'autre') {
+        // rien de spécial, le champ autre est géré ci-dessous
+      }
+    });
+  }
+  const field = document.getElementById(fieldId);
+  if (!field) return;
+  const radio = el.querySelector('input[type="radio"]');
+  const isSelected = radio && radio.checked;
+  if (isSelected) {
+    field.classList.add('visible');
+    const inp = field.querySelector('input');
+    if (inp) inp.focus();
+  } else {
+    field.classList.remove('visible');
+  }
+}
+
+// Fermer le champ "Autre" si on change de radio dans le même groupe (name)
+document.addEventListener('change', function(e) {
+  if (e.target.type !== 'radio') return;
+  if (e.target.value === 'autre') return;
+  // Chercher un champ autre lié au même groupe de radios
+  // Convention : data-radio-name sur le .autre-field
+  document.querySelectorAll('.autre-field[data-radio-name="' + e.target.name + '"]').forEach(f => {
+    f.classList.remove('visible');
+    const inp = f.querySelector('input');
+    if (inp) inp.value = '';
+  });
+});
+
+/* ─────────── Checkbox simple ─────────── */
 function selectCheckbox(el) {
   const cb = el.querySelector('input[type="checkbox"]');
   if (cb) el.classList.toggle('selected', cb.checked);
   updateProgress();
 }
 
+/* ─────────── Checkbox avec champ "Autre" ─────────── */
 function selectCheckboxAutre(el, fieldId) {
   const cb = el.querySelector('input[type="checkbox"]');
   if (cb) el.classList.toggle('selected', cb.checked);
   const field = document.getElementById(fieldId);
-  if (field) {
-    if (cb && cb.checked) {
-      field.classList.add('visible');
-      const inp = field.querySelector('input');
-      if (inp) inp.focus();
-    } else {
-      field.classList.remove('visible');
-    }
+  if (!field) return;
+  if (cb && cb.checked) {
+    field.classList.add('visible');
+    const inp = field.querySelector('input');
+    if (inp) inp.focus();
+  } else {
+    field.classList.remove('visible');
+    const inp = field.querySelector('input');
+    if (inp) inp.value = '';
   }
   updateProgress();
 }
 
+/* ─────────── Exposition (max 2) ─────────── */
 function selectExposition(el) {
   const cb = el.querySelector('input[type="checkbox"]');
   if (!cb) return;
@@ -808,46 +873,39 @@ function selectExposition(el) {
   updateProgress();
 }
 
-function toggleAutreCana() {
-  const field = document.getElementById('diametreCanaAutreField');
-  const autreRadio = document.querySelector('input[name="diamCana"][value="autre"]');
-  if (autreRadio && autreRadio.checked) {
-    field.classList.add('visible');
-    document.getElementById('diametreCanaAutreInput').focus();
-  } else {
-    field.classList.remove('visible');
-  }
-}
-
-function toggleAutreFiltration() {
-  const field = document.getElementById('filtrationAutreField');
-  const autreRadio = document.querySelector('input[name="filtration"][value="autre"]');
-  if (autreRadio && autreRadio.checked) {
-    field.classList.add('visible');
-    document.getElementById('filtrationAutreInput').focus();
-  } else {
-    field.classList.remove('visible');
-  }
-}
-
-document.querySelectorAll('input[name="diamCana"]').forEach(radio => {
-  radio.addEventListener('change', function() {
-    if (this.value !== 'autre') {
-      document.getElementById('diametreCanaAutreField').classList.remove('visible');
-      document.getElementById('diametreCanaAutreInput').value = '';
-    }
+/* ─────────── Ajout de data-radio-name aux champs autre liés à un radio ─────────── */
+// Associer chaque .autre-field à son groupe de radios via data-radio-name
+// On le fait au chargement en lisant le name du radio "autre" précédent
+window.addEventListener('DOMContentLoaded', function() {
+  // Pour chaque .autre-field lié à un radio, on retrouve le name
+  // via la structure : le choice-group précédent contient input[value="autre"][type="radio"]
+  document.querySelectorAll('.autre-field').forEach(function(field) {
+    const id = field.id;
+    // chercher dans le DOM un label qui appelle selectRadioAutre avec cet id
+    const radioInput = document.querySelector('input[type="radio"][value="autre"]');
+    // Approche directe : parcourir tous les radios "autre" et trouver leur groupe
+    // On relie via le parent choice-group -> le radio name
   });
+
+  // Approche robuste : pour chaque groupe de radios contenant un "autre",
+  // on cherche le .autre-field mentionné dans l'onclick du label et on y ajoute data-radio-name
+  document.querySelectorAll('.choice-group').forEach(function(group) {
+    const autreLabel = group.querySelector('label[onclick*="selectRadioAutre"]');
+    if (!autreLabel) return;
+    const radio = autreLabel.querySelector('input[type="radio"]');
+    if (!radio) return;
+    const onclickAttr = autreLabel.getAttribute('onclick') || '';
+    const match = onclickAttr.match(/selectRadioAutre\(this\s*,\s*'[^']+'\s*,\s*'([^']+)'/);
+    if (!match) return;
+    const fieldId = match[1];
+    const field = document.getElementById(fieldId);
+    if (field) field.setAttribute('data-radio-name', radio.name);
+  });
+
+  updateProgress();
 });
 
-document.querySelectorAll('input[name="filtration"]').forEach(radio => {
-  radio.addEventListener('change', function() {
-    if (this.value !== 'autre') {
-      document.getElementById('filtrationAutreField').classList.remove('visible');
-      document.getElementById('filtrationAutreInput').value = '';
-    }
-  });
-});
-
+/* ─────────── Barre de progression ─────────── */
 function updateProgress() {
   const radios = document.querySelectorAll('input[type="radio"]');
   const names = [...new Set([...radios].map(r => r.name))];
@@ -856,7 +914,6 @@ function updateProgress() {
 }
 
 document.querySelectorAll('input, textarea').forEach(el => el.addEventListener('input', updateProgress));
-updateProgress();
 </script>
 </body>
 </html>
